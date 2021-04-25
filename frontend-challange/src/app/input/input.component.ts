@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { MatSliderChange } from '@angular/material/slider'
 
 @Component({
@@ -6,27 +6,28 @@ import { MatSliderChange } from '@angular/material/slider'
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class InputComponent implements OnInit {
-  public textInputString: string = ''
-  public containerWidth: number = 300
-  public fontSize: number = 25
-  public a: number = 0
+export class InputComponent {
+  public textInputString: string | null =
+    localStorage.getItem('textInputString') ?? ''
+  public containerWidth: number =
+    Number(localStorage.getItem('containerWidth')) ?? 100
+  public fontSize: number = Number(localStorage.getItem('fontSize')) ?? 25
 
   constructor(protected changeDetectorRef: ChangeDetectorRef) {}
-
-  ngOnInit(): void {}
 
   public clearValue() {
     this.textInputString = ''
   }
 
   public onFormChange(value: string) {
+    localStorage.setItem('textInputString', value)
     this.fitText()
   }
 
-  public updateRange(event: MatSliderChange) {
+  public updateRangeSlider(event: MatSliderChange) {
     if (event.value) {
       this.containerWidth = event.value
+      localStorage.setItem('containerWidth', String(this.containerWidth))
     }
     if (this.containerWidth) {
       this.fitText()
@@ -44,10 +45,16 @@ export class InputComponent implements OnInit {
     if (textWidth) {
       dif = textWidth - this.containerWidth
     }
+    if (this.textInputString) {
+      this.fontSize = Math.min(
+        Math.max(
+          this.fontSize - (SCALE * dif) / this.textInputString.length,
+          0,
+        ),
+        MAX_FONT_SIZE,
+      )
+    }
 
-    this.fontSize = Math.min(
-      Math.max(this.fontSize - (SCALE * dif) / this.textInputString.length, 0),
-      MAX_FONT_SIZE,
-    )
+    localStorage.setItem('fontSize', String(this.fontSize))
   }
 }
