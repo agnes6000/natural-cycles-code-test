@@ -1,0 +1,37 @@
+<div class="wrapper">
+  <div
+    class="output-div"
+    [ngStyle]="{ 'max-width.px': containerWidth, 'font-size.px': fontSize }"
+  >
+    <span class="textSpan">
+      {{ this.textInputString }}
+    </span>
+  </div>
+  <div class="padding-16">
+    <mat-form-field class="example-form-field">
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="textInputString"
+        (ngModelChange)="onFormChange($event)"
+      />
+      <button
+        mat-button
+        *ngIf="!!textInputString"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="clearValue()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-slider
+      aria-label="Range"
+      (input)="updateRangeSlider($event)"
+      min="1"
+      max="1000"
+      value="{{ containerWidth }}"
+    ></mat-slider>
+  </div>
+</div>
