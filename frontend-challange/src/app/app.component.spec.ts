@@ -16,9 +16,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy()
   })
 
-  it(`should have as title 'frontend-challange'`, () => {
+  it(`should have as title 'frontend-challenge'`, () => {
     const fixture = TestBed.createComponent(AppComponent)
     const app = fixture.componentInstance
-    expect(app.title).toEqual('frontend-challange')
+    expect(app.title).toEqual('frontend-challenge')
   })
 })
