@@ -2,10 +2,38 @@
   padding: 16px;
 }
 .output-div {
-  border: solid black 1px;
+  border: solid #72035d 1px;
+  background-color: white;
   height: 50px;
   white-space: nowrap;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 15px;
+  overflow: hidden;
+}
+.wrapper {
+  padding: 32px;
+  background-color: #f5f3f3;
+  border: solid 8px #72035d;
+}
+
+::ng-deep .mat-accent .mat-slider-thumb {
+  background-color: #72035d;
+}
+
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: #72035d;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  color: #72035d !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  background-color: #72035d !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  background-color: #72035d !important;
 }
