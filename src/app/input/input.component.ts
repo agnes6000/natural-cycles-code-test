@@ -9,8 +9,9 @@ import { MatSliderChange } from '@angular/material/slider'
 export class InputComponent {
   public textInputString: string | null =
     localStorage.getItem('textInputString') ?? ''
-  public containerWidth: number =
-    Number(localStorage.getItem('containerWidth')) ?? 100
+  public containerWidth: number = localStorage.getItem('containerWidth')
+    ? Number(localStorage.getItem('containerWidth'))
+    : 100
   public fontSize: number = Number(localStorage.getItem('fontSize')) ?? 25
 
   constructor(protected changeDetectorRef: ChangeDetectorRef) {}
@@ -21,7 +22,7 @@ export class InputComponent {
 
   public onFormChange(value: string) {
     localStorage.setItem('textInputString', value)
-    this.fitText()
+    this.fitText('.output-div')
   }
 
   public updateRangeSlider(event: MatSliderChange) {
@@ -29,18 +30,21 @@ export class InputComponent {
       this.containerWidth = event.value
       localStorage.setItem('containerWidth', String(this.containerWidth))
     }
-    this.fitText()
+    this.fitText('.output-div')
   }
 
-  private fitText() {
+  private fitText(elementSelector: string) {
     const MAX_FONT_SIZE = 40
     const SCALE = 3
 
     this.changeDetectorRef.detectChanges()
 
-    let textElement = document.querySelector<HTMLElement>('.textSpan')
-    let textWidth = (textElement?.offsetWidth ?? 0) + 20
-    let dif = textWidth - this.containerWidth
+    const TEXT_ELEMENT = document.querySelector<HTMLElement>('.textSpan')
+    const TEXT_WIDTH = (TEXT_ELEMENT?.offsetWidth ?? 0) + 20
+    const ACTUAL_CONTAINER_WIDTH =
+      document.querySelector<HTMLElement>(elementSelector)?.offsetWidth ?? 0
+    const dif = TEXT_WIDTH - ACTUAL_CONTAINER_WIDTH
+
     if (this.textInputString) {
       this.fontSize = Math.min(
         Math.max(
