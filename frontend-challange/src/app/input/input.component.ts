@@ -29,22 +29,18 @@ export class InputComponent {
       this.containerWidth = event.value
       localStorage.setItem('containerWidth', String(this.containerWidth))
     }
-    if (this.containerWidth) {
-      this.fitText()
-    }
+    this.fitText()
   }
 
-  public fitText() {
+  private fitText() {
     const MAX_FONT_SIZE = 40
     const SCALE = 3
-    let dif = 0
+
     this.changeDetectorRef.detectChanges()
 
     let textElement = document.querySelector<HTMLElement>('.textSpan')
     let textWidth = (textElement?.offsetWidth ?? 0) + 20
-    if (textWidth) {
-      dif = textWidth - this.containerWidth
-    }
+    let dif = textWidth - this.containerWidth
     if (this.textInputString) {
       this.fontSize = Math.min(
         Math.max(
@@ -54,7 +50,6 @@ export class InputComponent {
         MAX_FONT_SIZE,
       )
     }
-
     localStorage.setItem('fontSize', String(this.fontSize))
   }
 }
