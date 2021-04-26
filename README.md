@@ -14,4 +14,5 @@ Some further improvements that could be done
 - update theme to set colors, instead of doing so in the css files
 
 Known issues
-There are a few issues with rescaling the window. Going from a large screen size to a small screen size, with a long text input, makes the text overflow.
+There is an issue when moving the slider really fast, the text doesn't resize in time.
+There is also an issue with rescaling the window. Going from a large screen size to a small screen size, with a long text input, makes the text overflow.
