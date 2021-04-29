@@ -17,8 +17,14 @@
 }
 .wrapper {
   padding: 32px;
+  padding-bottom: 0;
   background-color: #f5f3f3;
   border: solid 8px #72035d;
+}
+
+.image {
+  width: 200px;
+  line-height: 0;
 }
 
 ::ng-deep .mat-accent .mat-slider-thumb {
